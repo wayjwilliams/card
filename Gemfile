@@ -61,3 +61,14 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "rack-attack"
+gem "awesome_print", require: "ap"
+gem "font-awesome-sass", "~> 6.5.1"
+gem "sassc-rails"
+gem "recaptcha"
+gem "mini_magick"
+gem "tailwindcss-rails", "~> 2.3"
+gem "twilio-ruby"
+gem "mailgun-ruby"
+gem "appsignal"
