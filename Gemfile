@@ -64,7 +64,7 @@ end
 
 gem "rack-attack"
 gem "awesome_print", require: "ap"
-gem "font-awesome-sass", "~> 6.5.1"
+gem "font-awesome-sass", "~> 6.7.2"
 gem "sassc-rails"
 gem "recaptcha"
 gem "mini_magick"
