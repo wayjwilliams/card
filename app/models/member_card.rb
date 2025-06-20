@@ -34,7 +34,7 @@ end
 #   processed_image = create_image_file(coupon_image, member)
 
 #   # First, instantiate the Mailgun Client with your API key
-#   
+#
 #   # Define your message parameters
 #   message_params = {
 #     from: "No Reply <no-reply@.com>",
