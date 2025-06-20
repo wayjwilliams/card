@@ -1,0 +1,9 @@
+<div class="flex flex-col space-y-3 w-full print:hidden">
+  <button class="py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">Text Card</button>
+  <button class="py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition">Email Card</button>
+  <a href="<%= @card_image_data %>" download="member-card.png"
+     class="py-2 px-4 bg-yellow-500 text-white font-semibold rounded-lg shadow hover:bg-yellow-600 transition flex items-center justify-center">
+    <i class="fas fa-save mr-2"></i> Save Card
+  </a>
+  <button onclick="window.print();" class="py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition">Print Card</button>
+</div>

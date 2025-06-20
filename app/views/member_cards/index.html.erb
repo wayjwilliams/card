@@ -1,14 +1,12 @@
 <div class="w-screen h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center">
   <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md flex flex-col items-center">
     <h1 class="text-3xl font-extrabold text-blue-800 mb-6 text-center">Member Card</h1>
+    <p class="hidden print:block text-black text-center mb-4">
+      Here's your membership card! You can't do anything with it, but thanks for clicking PRINT!.
+    </p>
     <div class="mb-6 w-full flex justify-center">
       <%= image_tag @card_image_data, class: "rounded-lg shadow-md border border-gray-200" %>
     </div>
-    <div class="flex flex-col space-y-3 w-full">
-      <button class="py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">Send Card</button>
-      <button class="py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition">Save Card</button>
-      <button class="py-2 px-4 bg-yellow-500 text-white font-semibold rounded-lg shadow hover:bg-yellow-600 transition">Share Card</button>
-      <button class="py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition">Delete Card</button>
-    </div>
+    <%= render 'buttons' %>
   </div>
 </div>
