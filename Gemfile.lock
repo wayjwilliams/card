@@ -438,7 +438,7 @@ DEPENDENCIES
   solid_queue
   sqlite3 (>= 2.1)
   stimulus-rails
-  tailwindcss-rails (~> 3.3.1)
+  tailwindcss-rails
   thruster
   turbo-rails
   twilio-ruby
