@@ -24,26 +24,41 @@ class MemberCard < ApplicationRecord
     processed_image
   end
 
-  def text(to_number, member_id)
-  # Generate the card image first
-  @card_image_data = self.class.generate_coupon(member_id)
+def text(to_number, member_id)
+  # Generate the card image
+  image = self.class.generate_coupon(member_id)
+  
+  # Save image with unique filename
+  filename = "card-#{member_id}-#{Time.now.to_i}.png"
+  image_path = Rails.root.join('public', filename)
+  image.write(image_path)
 
-  # Initialize Twilio client with environment variables
+  # Get public URL for the image
+  host = ENV['HOST_URL'] || 'https://boiling-escarpment-56606.herokuapp.com'
+  public_url = "#{host}/#{filename}"
+
+  # Initialize Twilio client
   @client = Twilio::REST::Client.new(
-    ENV["TWILIO_ACCOUNT_SID"],  # Note the double L
-    ENV["TWILIO_AUTH_TOKEN"]    # Note the double L
+    ENV['TWILIO_ACCOUNT_SID'],
+    ENV['TWILIO_AUTH_TOKEN']
   )
 
   message = @client.messages.create(
     to: "+1#{to_number}",
-    from: ENV["STATE_TWILIO_NUMBER"], # Note the double L
+    from: ENV['STATE_TWILLIO_NUMBER'],
     body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
-    media_url: ENV["CARD_BASE_URL"]+"?member_id=#{member_id}"
+    media_url: public_url
   )
-rescue => e
-  Rails.logger.error "Text Message Error: #{e.message}"
-  raise
-end
+
+    # Clean up the file after sending
+    File.delete(image_path) if File.exist?(image_path)
+
+  rescue => e
+    Rails.logger.error "Text Message Error: #{e.message}"
+    # Clean up file if it exists, even on error
+    File.delete(image_path) if defined?(image_path) && File.exist?(image_path)
+    raise
+  end
 end
 
 # def email(customer_email, member)
