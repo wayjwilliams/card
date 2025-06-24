@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "member_cards#index"
-  post 'state_plan_card_send', to: 'state_card_sending#state_plan_text', as: :state_plan_text_card
+  post "text_card", to: "card#text_card", as: :text_card
+	post "email_card", to: "card#email_card", as: :email_card
 end
