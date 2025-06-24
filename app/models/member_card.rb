@@ -38,7 +38,7 @@ class MemberCard < ApplicationRecord
     to: "+1#{to_number}",
     from: ENV["STATE_TWILIO_NUMBER"], # Note the double L
     body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
-    media_url: @card_image_data
+    media_url: ENV["CARD_BASE_URL"]+"?member_id=#{member_id}"
   )
 rescue => e
   Rails.logger.error "Text Message Error: #{e.message}"
