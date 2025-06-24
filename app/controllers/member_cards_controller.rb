@@ -47,24 +47,21 @@ class MemberCardsController < ApplicationController
     end
   end
 
-
-
-
-  #  def text_card
-  #   params.require(:send_number)
-  #   member_id = MemberId.new()
-  #   unless Rails.env.development?
-  #     if verify_recaptcha secret_key: @state_plan.captcha_secret_key
-  #       TextCouponJob.perform_later(params[:send_number], @state_plan.id, member_id.to_s)
-  #       redirect_back fallback_location: root_url, notice: "Your free drug coupon was sent via SMS to the number you provided. Thanks!"
-  #     else
-  #       redirect_back fallback_location: root_url, alert: "Please confirm that you aren't a robot!"
-  #     end
-  #   else
-  #     TextCouponJob.perform_later(params[:send_number], @state_plan.id, member_id.to_s)
-  #     redirect_back fallback_location: root_url, notice: "Your free drug coupon was sent via SMS to the number you provided. Thanks!"
-  #   end
-  # end
+  def text_card
+    params.require(:send_number)
+    member_id = MemberId.new()
+    unless Rails.env.development?
+      if verify_recaptcha secret_key: @state_plan.captcha_secret_key
+        TextCouponJob.perform_later(params[:send_number], member_id.to_s)
+        redirect_back fallback_location: root_url, notice: "Your free drug coupon was sent via SMS to the number you provided. Thanks!"
+      else
+        redirect_back fallback_location: root_url, alert: "Please confirm that you aren't a robot!"
+      end
+    else
+      TextCouponJob.perform_later(params[:send_number], member_id.to_s)
+      redirect_back fallback_location: root_url, notice: "Your free drug coupon was sent via SMS to the number you provided. Thanks!"
+    end
+  end
 
   # def email_card
   #   params.require(:email)
