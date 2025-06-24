@@ -26,16 +26,23 @@ class MemberCard < ApplicationRecord
 
 def text(to_number, member_id)
   # Generate the card image
+  Rails.logger.info "Generating card image for member: #{member_id}"
   image = self.class.generate_coupon(member_id)
 
   # Save image with unique filename
   filename = "card-#{member_id}-#{Time.now.to_i}.png"
   image_path = Rails.root.join("public", filename)
   image.write(image_path)
+  Rails.logger.info "Image saved to: #{image_path}"
 
   # Get public URL for the image
   host = ENV["HOST_URL"] || "https://boiling-escarpment-56606.herokuapp.com"
   public_url = "#{host}/#{filename}"
+  Rails.logger.info "Public URL: #{public_url}"
+
+  # Log Twilio credentials (masked)
+  Rails.logger.info "Twilio SID: #{ENV['TWILIO_ACCOUNT_SID']&.slice(0..5)}..."
+  Rails.logger.info "Twilio From Number: #{ENV['STATE_TWILIO_NUMBER']}"
 
   # Initialize Twilio client
   @client = Twilio::REST::Client.new(
@@ -49,12 +56,15 @@ def text(to_number, member_id)
     body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
     media_url: public_url
   )
+  
+  Rails.logger.info "Twilio message sent! SID: #{message.sid}"
 
-    # Clean up the file after sending
-    File.delete(image_path) if File.exist?(image_path)
+  # Clean up the file after sending
+  File.delete(image_path) if File.exist?(image_path)
 
   rescue => e
     Rails.logger.error "Text Message Error: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
     # Clean up file if it exists, even on error
     File.delete(image_path) if defined?(image_path) && File.exist?(image_path)
     raise
