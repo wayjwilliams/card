@@ -66,8 +66,6 @@ end
 
 gem "rack-attack"
 gem "awesome_print", require: "ap"
-gem "font-awesome-sass", "~> 6.5.1"
-gem "sassc-rails"
 gem "recaptcha"
 gem "mini_magick"
 gem "tailwindcss-rails", "~> 3.3.1"
