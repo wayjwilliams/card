@@ -64,6 +64,10 @@ group :test do
   gem "selenium-webdriver"
 end
 
+group :production do
+  gem "pg"
+end
+
 gem "rack-attack"
 gem "awesome_print", require: "ap"
 gem "recaptcha"
