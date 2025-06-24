@@ -53,13 +53,13 @@ class MemberCardsController < ApplicationController
     unless Rails.env.development?
       if verify_recaptcha secret_key: ENV["RECAPTCHA_SECRET_KEY"]
         TextCouponJob.perform_later(params[:send_number], member_id.to_s)
-        redirect_back fallback_location: root_url, notice: "Your free drug coupon was sent via SMS to the number you provided. Thanks!"
+        redirect_back fallback_location: root_url, notice: "Your fake card was sent via SMS to the number you provided. Thanks!"
       else
         redirect_back fallback_location: root_url, alert: "Please confirm that you aren't a robot!"
       end
     else
-      TextCouponJob.perform_later(params[:send_number], member_id.to_s)
-      redirect_back fallback_location: root_url, notice: "Your free drug coupon was sent via SMS to the number you provided. Thanks!"
+      TextCardJob.perform_later(params[:send_number], member_id.to_s)
+      redirect_back fallback_location: root_url, notice: "Your fake card was sent via SMS to the number you provided. Thanks!"
     end
   end
 
