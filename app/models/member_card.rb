@@ -25,16 +25,20 @@ class MemberCard < ApplicationRecord
   end
 
   def text(to_number, member_id)
-  account_sid = Rails.application.credentials.twilio.account_sid
-  auth_token = Rails.application.credentials.twilio.auth_token
-  @client = Twilio::REST::Client.new(account_sid, auth_token)
-    # begin
-    message = @client.messages.create(
-      to: "+1#{to_number}",  # Text this number
-      from: Rails.application.credentials.twilio.send_number, # From a valid Twilio number
-      body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
-      media_url: "https:///state-coupon.png?member_id=#{member_id}"
+    @client = Twilio::REST::Client.new(
+      ENV["TWILLIO_ACCOUNT_SID"],
+      ENV["TWILLIO_AUTH_TOKEN"]
     )
+    account_sid = Rails.application.credentials.twilio.account_sid
+    auth_token = Rails.application.credentials.twilio.auth_token
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
+      # begin
+      message = @client.messages.create(
+        to: "+1#{to_number}",  # Text this number
+        from: Rails.application.credentials.twilio.send_number, # From a valid Twilio number
+        body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
+        media_url: @card_image_data
+      )
   end
 end
 
