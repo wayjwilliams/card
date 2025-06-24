@@ -58,6 +58,7 @@
 [2025-06-19T22:57:29 (process) #40028][INFO] Not starting, not active for development
 [2025-06-19T23:00:49 (process) #40553][INFO] Not starting, not active for development
 [2025-06-19T23:21:36 (process) #41589][INFO] Not starting, not active for development
+<<<<<<< HEAD
 [2025-06-23T20:04:31 (process) #49897][INFO] Not starting, not active for development
 [2025-06-23T20:10:28 (process) #50093][INFO] Not starting, not active for development
 [2025-06-23T20:10:28 (process) #50094][INFO] Not starting, not active for development
@@ -71,3 +72,7 @@
 [2025-06-23T20:20:51 (process) #50705][INFO] Not starting, not active for development
 [2025-06-23T20:24:42 (process) #50835][INFO] Not starting, not active for development
 [2025-06-23T20:24:42 (process) #50836][INFO] Not starting, not active for development
+=======
+[2025-06-23T20:47:57 (process) #52209][INFO] Not starting, not active for development
+>>>>>>> 2c50e75 (tailwind commit)
+[2025-06-23T20:48:44 (process) #52455][INFO] Not starting, not active for development
