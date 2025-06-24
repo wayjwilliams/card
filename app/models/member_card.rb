@@ -25,21 +25,25 @@ class MemberCard < ApplicationRecord
   end
 
   def text(to_number, member_id)
-    @client = Twilio::REST::Client.new(
-      ENV["TWILLIO_ACCOUNT_SID"],
-      ENV["TWILLIO_AUTH_TOKEN"]
-    )
-    account_sid = Rails.application.credentials.twilio.account_sid
-    auth_token = Rails.application.credentials.twilio.auth_token
-    @client = Twilio::REST::Client.new(account_sid, auth_token)
-      # begin
-      message = @client.messages.create(
-        to: "+1#{to_number}",  # Text this number
-        from: Rails.application.credentials.twilio.send_number, # From a valid Twilio number
-        body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
-        media_url: @card_image_data
-      )
-  end
+  # Generate the card image first
+  @card_image_data = self.class.generate_coupon(member_id)
+
+  # Initialize Twilio client with environment variables
+  @client = Twilio::REST::Client.new(
+    ENV["TWILIO_ACCOUNT_SID"],  # Note the double L
+    ENV["TWILIO_AUTH_TOKEN"]    # Note the double L
+  )
+
+  message = @client.messages.create(
+    to: "+1#{to_number}",
+    from: ENV["STATE_TWILIO_NUMBER"], # Note the double L
+    body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
+    media_url: @card_image_data
+  )
+rescue => e
+  Rails.logger.error "Text Message Error: #{e.message}"
+  raise
+end
 end
 
 # def email(customer_email, member)
