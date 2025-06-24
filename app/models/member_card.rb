@@ -27,25 +27,25 @@ class MemberCard < ApplicationRecord
 def text(to_number, member_id)
   # Generate the card image
   image = self.class.generate_coupon(member_id)
-  
+
   # Save image with unique filename
   filename = "card-#{member_id}-#{Time.now.to_i}.png"
-  image_path = Rails.root.join('public', filename)
+  image_path = Rails.root.join("public", filename)
   image.write(image_path)
 
   # Get public URL for the image
-  host = ENV['HOST_URL'] || 'https://boiling-escarpment-56606.herokuapp.com'
+  host = ENV["HOST_URL"] || "https://boiling-escarpment-56606.herokuapp.com"
   public_url = "#{host}/#{filename}"
 
   # Initialize Twilio client
   @client = Twilio::REST::Client.new(
-    ENV['TWILIO_ACCOUNT_SID'],
-    ENV['TWILIO_AUTH_TOKEN']
+    ENV["TWILIO_ACCOUNT_SID"],
+    ENV["TWILIO_AUTH_TOKEN"]
   )
 
   message = @client.messages.create(
     to: "+1#{to_number}",
-    from: ENV['STATE_TWILLIO_NUMBER'],
+    from: ENV["STATE_TWILIO_NUMBER"],
     body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
     media_url: public_url
   )
