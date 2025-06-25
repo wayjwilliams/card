@@ -25,26 +25,8 @@ class MemberCard < ApplicationRecord
   end
 
 def text(to_number, member_id)
-  # Generate the card image
-  Rails.logger.info "Generating card image for member: #{member_id}"
-  image = self.class.generate_coupon(member_id)
+  image_url = ENV["CARD_BASE_URL"] || "https://state-plan.unacdn.com/state_plan_images/state-card-backgrounds/test/card.png"
 
-  # Save image with unique filename
-  filename = "#{member_id}.png"
-  image_path = Rails.root.join("public", filename)
-  image.write(image_path)
-  Rails.logger.info "Image saved to: #{image_path}"
-
-  # Get public URL for the image
-  host = ENV["HOST_URL"] || "https://boiling-escarpment-56606.herokuapp.com"
-  public_url = "#{host}/#{filename}"
-  Rails.logger.info "Public URL: #{public_url}"
-
-  # Log Twilio credentials (masked)
-  Rails.logger.info "Twilio SID: #{ENV['TWILIO_ACCOUNT_SID']&.slice(0..5)}..."
-  Rails.logger.info "Twilio From Number: #{ENV['STATE_TWILIO_NUMBER']}"
-
-  # Initialize Twilio client
   @client = Twilio::REST::Client.new(
     ENV["TWILIO_ACCOUNT_SID"],
     ENV["TWILIO_AUTH_TOKEN"]
@@ -54,18 +36,13 @@ def text(to_number, member_id)
     to: "+1#{to_number}",
     from: ENV["STATE_TWILIO_NUMBER"],
     body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
-    media_url: public_url
+    media_url: image_url
   )
   Rails.logger.info "Twilio message sent! SID: #{message.sid}"
-
-  # Clean up the file after sending
-  File.delete(image_path) if File.exist?(image_path)
 
   rescue => e
     Rails.logger.error "Text Message Error: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
-    # Clean up file if it exists, even on error
-    File.delete(image_path) if defined?(image_path) && File.exist?(image_path)
     raise
   end
 end
