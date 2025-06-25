@@ -1,6 +1,12 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+require_relative 'config/application'
 
-require_relative "config/application"
+Rails.application.load_tasks if defined?(Rails)
 
-Rails.application.load_tasks
+# Conditionally load database tasks
+if ENV['RAILS_ENV'] != 'production'
+  begin
+    require 'active_record/railties/databases'
+  rescue LoadError
+    # Skip loading database tasks if ActiveRecord is not present
+  end
+end
