@@ -56,7 +56,6 @@ def text(to_number, member_id)
     body: "ID Number: #{member_id}\n\nYou may opt out of receiving texts by replying STOP",
     media_url: public_url
   )
-  
   Rails.logger.info "Twilio message sent! SID: #{message.sid}"
 
   # Clean up the file after sending
