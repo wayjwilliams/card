@@ -8,7 +8,7 @@ class MemberCard < ApplicationRecord
     # Overlay the member ID text
     image.combine_options do |c|
       c.gravity "center"         # Try "center", "north", "south", etc.
-      c.font "Arial"
+      c.font "Liberation-Sans"
       c.fill "black"
       c.pointsize "70"
       c.draw "text 0,350 '#{member}'"  # Adjust coordinates as needed
