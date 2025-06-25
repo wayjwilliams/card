@@ -9,9 +9,10 @@ development:
 
 test:
   adapter: sqlite3
-  database: <%= Rails.root.join("storage/test.sqlite3") %>
+  database: storage/test.sqlite3
   pool: 5
   timeout: 5000
+  url: null  # prevent DATABASE_URL
 
 production:
   primary:
