@@ -30,7 +30,7 @@ def text(to_number, member_id)
   image = self.class.generate_coupon(member_id)
 
   # Save image with unique filename
-  filename = "card-#{member_id}-#{Time.now.to_i}.png"
+  filename = "#{member_id}.png"
   image_path = Rails.root.join("public", filename)
   image.write(image_path)
   Rails.logger.info "Image saved to: #{image_path}"
