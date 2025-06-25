@@ -18,24 +18,14 @@ production:
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     url: <%= ENV["DATABASE_URL"] %>
   
-  primary_replica:
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    url: <%= ENV["DATABASE_URL"] %>
-    replica: true
-
   cache:
     adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>
-    database: <%= ENV['DATABASE_URL'].split('/').last %>
   
   queue:
     adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>
-    database: <%= ENV['DATABASE_URL'].split('/').last %>
   
   cable:
     adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>
-    database: <%= ENV['DATABASE_URL'].split('/').last %>
