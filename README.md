@@ -10,4 +10,5 @@ Most of my work projects are behind the privacy/proprietary wall, so I wanted to
 - Sends the card via Twilio texting (static image because I'm on the free tier, but normally this would include the randomly generated member ID)
 - Emails the card via Mailgun (again, with a static image)
   - I'm on the free tier, so it may send an email prompt first, confirming that you want to receive emails from Heroku.want to receive emails from Heroku.
+  - Also, check your spam folder!
 - Hosted on Heroku
