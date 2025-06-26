@@ -1,5 +1,6 @@
 class MemberCard < ApplicationRecord
   require "mini_magick"
+  require "open-uri"
 
    def self.generate_coupon(member)
     base_url = ENV["CARD_BASE_URL"] || "https://state-plan.unacdn.com/state_plan_images/state-card-backgrounds/test/card.png"
@@ -50,12 +51,16 @@ class MemberCard < ApplicationRecord
     return if customer_email.blank? # Prevent sending if blank
 
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+
+    file_url = ENV["SEND_CARD_URL"]
+    file = URI.open(file_url)
+
     message_params = {
       from: "No Reply <noreply@sandbox7b822cd9b5ae46d58e8a23622b2776aa.mailgun.org>",
       to: customer_email.to_s, # Make sure this is not nil or blank
       subject: "Your fake membership card to nowhere is here!",
       text: "here's your card!",
-      attachment: ENV["SEND_CARD_URL"]
+      attachment: file
     }
     mg_client.send_message(ENV["MAILGUN_DOMAIN"], message_params)
   end
