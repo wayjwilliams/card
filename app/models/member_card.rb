@@ -51,12 +51,12 @@ class MemberCard < ApplicationRecord
 
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     message_params = {
-      from: "No Reply <no-reply@boiling-escarpment-56606-6c0e1fde4a01.herokuapp.com>",
+      from: "No Reply <postmaster@sandbox1d937e22231740cca65a0f1a25a758d5.mailgun.org>",
       to: customer_email.to_s, # Make sure this is not nil or blank
       subject: "Your fake membership card to nowhere is here!",
       html: "...",
       attachment: ENV["SEND_CARD_URL"]
     }
-    mg_client.send_message("smtp.mailgun.org", message_params)
+    mg_client.send_message("sandbox7b822cd9b5ae46d58e8a23622b2776aa.mailgun.org", message_params)
   end
 end
