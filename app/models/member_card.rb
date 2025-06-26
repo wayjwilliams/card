@@ -57,6 +57,6 @@ class MemberCard < ApplicationRecord
       html: "...",
       attachment: ENV["SEND_CARD_URL"]
     }
-    mg_client.send_message("sandbox7b822cd9b5ae46d58e8a23622b2776aa.mailgun.org", message_params)
+    mg_client.send_message(ENV["MAILGUN_DOMAIN"], message_params)
   end
 end
