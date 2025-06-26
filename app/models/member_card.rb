@@ -49,7 +49,7 @@ class MemberCard < ApplicationRecord
   def email(customer_email)
     return if customer_email.blank? # Prevent sending if blank
 
-    mg_client = Mailgun::Client.new ENV["MAILGUN"]
+    mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     message_params = {
       from: "No Reply <no-reply@boiling-escarpment-56606-6c0e1fde4a01.herokuapp.com>",
       to: customer_email.to_s, # Make sure this is not nil or blank
@@ -57,6 +57,6 @@ class MemberCard < ApplicationRecord
       html: "...",
       attachment: ENV["SEND_CARD_URL"]
     }
-    mg_client.send_message("mg.unacdn.com", message_params)
+    mg_client.send_message("smtp.mailgun.org", message_params)
   end
 end
