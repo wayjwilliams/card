@@ -1,11 +1,9 @@
 <!-- Email Modal -->
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 hidden" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
   <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
     <div class="flex items-center justify-between px-6 py-4 border-b">
       <h5 class="text-lg font-semibold text-center flex-1" id="emailModalLabel">Send this coupon/card as an email:</h5>
-      <button type="button" class="text-gray-400 hover:text-gray-600" data-bs-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <button type="button" class="text-gray-400 hover:text-gray-600 text-2xl font-bold focus:outline-none" onclick="document.getElementById('emailModal').classList.add('hidden')">&times;</button>
     </div>
     <div class="px-6 py-4">
       <%= form_tag email_card_path, class: "space-y-4" do %>
@@ -39,7 +37,7 @@
       </script>
     </div>
     <div class="px-6 py-4 border-t flex justify-end">
-      <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded transition" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="py-2 px-4 bg-gray-200 text-gray-700 font-semibold rounded-lg shadow hover:bg-gray-300 transition" onclick="document.getElementById('emailModal').classList.add('hidden')">Close</button>
     </div>
   </div>
 </div>
