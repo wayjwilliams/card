@@ -64,8 +64,8 @@ class MemberCard < ApplicationRecord
       from: "No Reply <noreply@sandbox7b822cd9b5ae46d58e8a23622b2776aa.mailgun.org>",
       to: customer_email.to_s, # Make sure this is not nil or blank
       subject: "Your fake membership card to nowhere is here!",
-      text: "here's your card!",
-      attachment: file
+      html: "<p>here's your card!</p>
+      image: <img src='#{file_url}' alt='Membership Card' style='max-width:100%; height:auto;'/>"
     }
     mg_client.send_message(ENV["MAILGUN_DOMAIN"], message_params)
   end
