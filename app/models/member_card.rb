@@ -25,7 +25,7 @@ class MemberCard < ApplicationRecord
     processed_image
   end
 
-  def text(to_number, member_id)
+  def text(to_number)
     image_url = ENV["CARD_BASE_URL"] || "https://state-plan.unacdn.com/state_plan_images/state-card-backgrounds/test/card.png"
 
     @client = Twilio::REST::Client.new(
