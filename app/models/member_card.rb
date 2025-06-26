@@ -48,6 +48,11 @@ class MemberCard < ApplicationRecord
     end
 
   def email(customer_email)
+    Rails.logger.info "customer_email: #{customer_email.inspect}"
+    Rails.logger.info "MEMBER_CARD_URL: #{ENV['MEMBER_CARD_URL'].inspect}"
+    Rails.logger.info "MAILGUN_API_KEY: #{ENV['MAILGUN_API_KEY'].inspect}"
+    Rails.logger.info "MAILGUN_DOMAIN: #{ENV['MAILGUN_DOMAIN'].inspect}"
+
     return if customer_email.blank? # Prevent sending if blank
 
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
