@@ -1,9 +1,9 @@
 class TextCardJob < ApplicationJob
   queue_as :default
 
-  def perform(phone_number, member_id)
+  def perform(phone_number)
     member_card = MemberCard.new
-    member_card.text(phone_number, member_id)
+    member_card.text(phone_number)
   rescue Twilio::REST::RestError => e
     Rails.logger.error "Twilio Error: #{e.message}"
     raise
