@@ -57,6 +57,6 @@ class MemberCard < ApplicationRecord
       html: "...",
       attachment: ENV["SEND_CARD_URL"]
     }
-    mg_client.send_message("mg@unacdn.com", message_params)
+    mg_client.send_message("mg.unacdn.com", message_params)
   end
 end
