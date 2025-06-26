@@ -48,10 +48,10 @@ class MemberCard < ApplicationRecord
     end
 
   def email(customer_email)
-    Rails.logger.info "customer_email: #{customer_email.inspect}"
-    Rails.logger.info "MEMBER_CARD_URL: #{ENV['MEMBER_CARD_URL'].inspect}"
-    Rails.logger.info "MAILGUN_API_KEY: #{ENV['MAILGUN_API_KEY'].inspect}"
-    Rails.logger.info "MAILGUN_DOMAIN: #{ENV['MAILGUN_DOMAIN'].inspect}"
+    # Rails.logger.info "customer_email: #{customer_email.inspect}"
+    # Rails.logger.info "MEMBER_CARD_URL: #{ENV['MEMBER_CARD_URL'].inspect}"
+    # Rails.logger.info "MAILGUN_API_KEY: #{ENV['MAILGUN_API_KEY'].inspect}"
+    # Rails.logger.info "MAILGUN_DOMAIN: #{ENV['MAILGUN_DOMAIN'].inspect}"
 
     return if customer_email.blank? # Prevent sending if blank
 
@@ -64,7 +64,8 @@ class MemberCard < ApplicationRecord
       from: "No Reply <noreply@sandbox7b822cd9b5ae46d58e8a23622b2776aa.mailgun.org>",
       to: customer_email.to_s, # Make sure this is not nil or blank
       subject: "Your fake membership card to nowhere is here!",
-      html: "<p>here's your card!</p>
+      html: "<p>Here's your card!</p>
+      <p>Remember, it doesn't go anywhere and isn't real. Do not bring this to a store!</p>
       image: <img src='#{file_url}' alt='Membership Card' style='max-width:100%; height:auto;'/>"
     }
     mg_client.send_message(ENV["MAILGUN_DOMAIN"], message_params)
