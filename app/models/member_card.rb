@@ -52,7 +52,7 @@ class MemberCard < ApplicationRecord
 
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
 
-    file_url = ENV["SEND_CARD_URL"]
+    file_url = ENV["MEMBER_CARD_URL"]
     file = URI.open(file_url)
 
     message_params = {
